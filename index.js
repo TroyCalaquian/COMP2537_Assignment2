@@ -100,7 +100,7 @@ app.post("/createUser", async (req, res) => {
     await userCollection.insertOne({username: username, email: email, password: hashedPassword});
     console.log("user created");
     req.session.authenticated = true;
-    const result = await userCollection.find({email: email}).project({username: 1, email: 1, password: 1, _id:1}).toArray();
+    const result = await userCollection.find({email: email}).project({username: 1, email: 1, password: 1, user_type: 'user', _id:1}).toArray();
     req.session.username = result[0].username;
     req.session.cookie.maxAge = expireTime;
   
@@ -153,6 +153,18 @@ app.get("/members", (req,res) => {
     res.render("members", {username: username});
   }
 });
+
+app.get("/admin", async (req,res) => {
+  if (!req.session.authenticated) {
+    res.redirect("/");
+    return;
+  } else {
+    users = await userCollection.find().toArray();
+    res.render("admin", {users: users});
+  }
+});
+
+/* TODO: Add promote and demote options here */
 
 app.get("/logout", (req,res) => {
   req.session.destroy();

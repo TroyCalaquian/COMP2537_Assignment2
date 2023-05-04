@@ -1,0 +1,9 @@
+<%- include ('templates/header.ejs') %>
+<h1>Users</h1>
+<ol>
+  <% let i = 0; %>
+  <% for(i = 0; i < users.length; i++) { %>
+    <%- include ('templates/user.ejs', {user: users[i]}) %>
+  <% } %>
+</ol>
+<%- include ('templates/footer.ejs') %>
