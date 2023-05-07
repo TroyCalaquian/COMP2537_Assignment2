@@ -1,5 +1,12 @@
 <%- include ("templates/header.ejs") %>
-<h1>Home Page</h1>
-<button onclick="location.href='/signup'">Sign up</button>
-<button onclick="location.href='/login'">Log in</button>
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold text-body-emphasis">Hello World!</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Welcome to this example website for Assignment 2 of COMP2537!</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <button type="button" class="btn btn-primary btn-lg px-4 gap-3" onclick="location.href='/signup'">Sign up</button>
+      <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='/login'">Log in</button>
+    </div>
+  </div>
+</div>
 <%- include ("templates/footer.ejs") %>
