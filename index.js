@@ -67,10 +67,7 @@ function isLoggedIn(req, res, next) {
 }
 
 function isAdmin(req, res, next) {
-  if (!req.session.authenticated) {
-    res.redirect("/");
-    return;
-  } else if (req.session.user_type === "admin") {
+  if (req.session.user_type === "admin") {
     next();
   } else {
     res.status(403);
