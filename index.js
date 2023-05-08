@@ -67,7 +67,9 @@ function isLoggedIn(req, res, next) {
 }
 
 function isAdmin(req, res, next) {
-  if (req.session.user_type === "admin") {
+  if (!req.session.authenticated) {
+    res.redirect("/login");
+  } else if (req.session.user_type === "admin") {
     next();
   } else {
     res.status(403);
@@ -176,7 +178,7 @@ app.get("/members", hasValidSession, (req, res) => {
   res.render("members", { username: username });
 });
 
-app.use("/admin", hasValidSession, isAdmin);
+app.use("/admin", isAdmin);
 app.get("/admin", async (req, res) => {
   users = await userCollection.find().project({_id: 1, user_type: 1, username: 1}).toArray();
   let i = 0;
